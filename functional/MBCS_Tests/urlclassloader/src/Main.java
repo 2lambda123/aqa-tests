@@ -18,7 +18,7 @@ import java.util.*;
 public class Main {
 
    public static void main(String[] args) throws Exception {
-      Locale.setDefault(new Locale(args[1],args[2]));
+      Locale.setDefault(new Locale(args[1],args[2],args[3]));
       System.setOut(new java.io.PrintStream(new File("output"),args[3]));
       String propfile = args[0]+"_"+args[1]+"_"+args[2]+"."+args[3]+".properties";
       String[] teststring = null;
@@ -33,3 +33,12 @@ public class Main {
       System.out.close();
    }
 }
+      File file = new File("Linux_ko_KR.UTF-8.txt");
+      try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+         String line;
+         while ((line = br.readLine()) != null) {
+            // process each line
+         }
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
