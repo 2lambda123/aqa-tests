@@ -26,6 +26,7 @@ import java.lang.reflect.*;
 public class UrlClassClose{
     private static JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
     private int errCnt = 0;
+    private URLClassLoader loader;
     protected static final String packageNameTemplate = "com.example.%s.pkg";
 
     UrlClassClose(String jarName, String className, String[] values) throws MalformedURLException {
@@ -37,7 +38,7 @@ public class UrlClassClose{
             String packageName = String.format(packageNameTemplate, className);
             try {
                 Thread.sleep(100);
-                URLClassLoader loader = new URLClassLoader(new URL[] {url});
+                URLClassLoader loader = new URLClassLoader(new URL[] {url}, getClass().getClassLoader());
                 Class<?> cl = Class.forName(packageName+"."+className, true, loader);
                 Runnable foo = (Runnable) cl.getConstructor().newInstance();
                 System.out.println("\nThe following is foo.run() result./ Count:"+ (i+1) +" times.");
