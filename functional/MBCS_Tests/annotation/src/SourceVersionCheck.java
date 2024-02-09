@@ -12,6 +12,7 @@
 * limitations under the License.
 *******************************************************************************/
 
+import io.github.pixee.security.SystemCommand;
 import java.io.IOException;
 import java.io.File;
 import java.io.BufferedReader;
@@ -87,7 +88,7 @@ public class SourceVersionCheck {
                 commandList.add(targetFile);
                 String[] command = commandList.toArray(new String[0]);
                 Runtime runtime = Runtime.getRuntime();
-                Process p = runtime.exec(command, null, null);
+                Process p = SystemCommand.runCommand(runtime, command, null, null);
                 int ret = p.waitFor();
                 if (ret != 0) {
                     System.err.println("Error: javac got an error");
@@ -104,7 +105,7 @@ public class SourceVersionCheck {
                 commandList.add(target + "_" + sv.toString());
                 commandList.add("AnnotatedTest.java");
                 String[] cmdProcessor = commandList.toArray(new String[0]);
-                p = runtime.exec(cmdProcessor, null, null);
+                p = SystemCommand.runCommand(runtime, cmdProcessor, null, null);
                 ret = p.waitFor();
                 if (ret != 0) {
                     System.err.println("Error: javac -processor got an error");
